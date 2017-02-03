@@ -7,8 +7,8 @@ class DoneWorkspace extends Component {
             <div className="col-lg-4 col-md-4">
                 <h1 className="workspace-heading">
                     Done
-                </h1>
-                <Project/>
+                </h1>   
+                <label>Drag and Drop Finished Projects Here</label>
             </div>
         );
     };
