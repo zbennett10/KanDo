@@ -7,6 +7,10 @@
 
 }
 
-th {
+.project {
+    margin-top: 25px;
+}
+
+.workspace-heading {
     font-size: 64px;
 }

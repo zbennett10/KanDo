@@ -9,7 +9,7 @@ class Workspace extends Component {
     }
     render() {
         return(
-            <div className="workspace-main text-center">
+            <div className="row text-center">
                 <TodoWorkspace  />
                 <DoingWorkspace />
                 <DoneWorkspace />

@@ -4,18 +4,11 @@ import Project from './Project';
 class DoneWorkspace extends Component {
     render() {
         return(
-            <div className="workspace">
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th className="info">Done</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <Project/>
-                    <Project/>
-                </tbody>
-            </table>
+            <div className="col-lg-4 col-md-4">
+                <h1 className="workspace-heading">
+                    Done
+                </h1>
+                <Project/>
             </div>
         );
     };
