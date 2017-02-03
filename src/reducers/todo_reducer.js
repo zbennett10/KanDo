@@ -1,11 +1,26 @@
 //import action that adds/removes or changes project here
-import {ADD_TODO} from '../actions/index';
+var initialTodo = [
+    {
+        title: 'Project1'
+    },
+    {
+        title: 'Project2'
+    },
+    {
+        title: 'Project3'
+    }
+]
 
-export default function(state = [], action) {
+export default function(state = initialTodo, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_TODO':
-        return [];
+            //return new state with added project
+        break;
+        case 'CLEAR_TODO':
+            console.log('running action');
+            return action.payload;
+        break;
     }
     return state;
 }

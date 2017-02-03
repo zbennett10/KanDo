@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import TodoWorkspace from './TodoWorkspace';
-import DoingWorkspace from './DoingWorkspace';
-import DoneWorkspace from './DoneWorkspace';
+import TodoWorkspace from '../containers/TodoWorkspace';
+import DoingWorkspace from '../containers/DoingWorkspace';
+import DoneWorkspace from '../containers/DoneWorkspace';
+
+
 
 class Workspace extends Component {
     constructor(props) {
@@ -10,7 +12,7 @@ class Workspace extends Component {
     render() {
         return(
             <div className="row text-center">
-                <TodoWorkspace  />
+                <TodoWorkspace />
                 <DoingWorkspace />
                 <DoneWorkspace />
             </div>

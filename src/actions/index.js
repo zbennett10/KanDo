@@ -7,6 +7,13 @@ export function addTodo() {
     }
 }
 
+export function clearTodo() {
+    return {
+        type: 'CLEAR_TODO',
+        payload: []
+    }
+}
+
 
 
 //doing workspace

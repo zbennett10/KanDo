@@ -6,8 +6,8 @@ class Project extends Component {
             <div className="card project">
                 <div className="card-block">
                     <h4 className="card-title">
-                        <a href="#" class="btn btn-primary">
-                            Project Title
+                        <a href="#" className="btn btn-primary">
+                            {this.props.title}
                         </a>
                     </h4>
                 </div>
