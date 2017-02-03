@@ -1,11 +1,9 @@
 //todo workspace
-export function addTodo() {
+export function addTodo(project) {
     //add todo here
     return {
         type: 'ADD_TODO',
-        payload: [{
-            title: 'New Project'
-        }]
+        payload: [project]
     }
 }
 

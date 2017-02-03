@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addTodo, clearTodo} from '../actions/index';
 import Modal from 'react-modal';
+import {modalStyle} from '../App.js';
 
 
 class TodoWorkspace extends Component {
@@ -12,13 +13,12 @@ class TodoWorkspace extends Component {
         this.onWorkspaceClear = this.onWorkspaceClear.bind(this);
         this.onOpenAddModal = this.onOpenAddModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.onAddProject = this.onAddProject.bind(this);
 
         this.state = {
             addModalOpen: false
         }
     }
-
-   
 
     onWorkspaceClear(event) {
         this.props.clearTodo();
@@ -29,6 +29,14 @@ class TodoWorkspace extends Component {
     }
 
     closeModal() {
+        this.setState({addModalOpen: false});
+    }
+
+    onAddProject() {
+        let projectTitle = this.refs.projectTitle.value;
+        this.props.addTodo({
+            title: projectTitle
+        });
         this.setState({addModalOpen: false});
     }
 
@@ -54,12 +62,24 @@ class TodoWorkspace extends Component {
                 <Modal
                     isOpen={this.state.addModalOpen}
                     contentLabel="Modal"
+                    style={modalStyle}
     >
-                    <h1>Modal Content</h1>
-                    <p>Etc.</p>
+                    <h1>Modal Content</h1>               
+                    <div className="form-group row">
+                        <label htmlFor="project-title" className="col-2 col-form-label">Title</label>
+                        <div className="col-10">
+                            <input ref="projectTitle" className="form-control" type="text" id="project-title"/>
+                        </div>
+                    </div>
+                    
+
                     <footer>
-                        <button className="btn btm-lg btn-danger"
-                            onClick={this.closeModal}>Close</button>
+                        <div className="btn-group">
+                            <button className="btn btn-lg btn-danger"
+                                onClick={this.closeModal}>Close</button>
+                            <button className="btn btn-lg btn-success"
+                                onClick={this.onAddProject}>Add</button>
+                        </div>
                     </footer>
                 </Modal>
             </div>
