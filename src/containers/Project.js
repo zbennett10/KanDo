@@ -54,7 +54,7 @@ class Project extends Component {
                             <button className="btn btn-lg btn-danger"
                                 onClick={this.closeModal}>Close</button>
                             <button className="btn btn-lg btn-success"
-                                onClick={null}>Update</button>
+                                onClick={null}>Add</button>
                         </div>
                     </footer>
                 </Modal>
