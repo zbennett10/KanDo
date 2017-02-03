@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Project from './components/Project';
+import Workspace from './components/Workspace';
 
 class App extends Component {
   render() {
     return (
       <div className='container'>
-      <Project/>
+      <Workspace/>
       </div>
     );
   }
