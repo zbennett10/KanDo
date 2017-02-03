@@ -18,6 +18,19 @@ export function clearTodo() {
 
 //doing workspace
 
+export function addDoing(project) {
+    return {
+        type: 'ADD_DOING',
+        payload: [project]
+    }
+}
+
+export function clearDoing() {
+    return {
+        type: 'CLEAR_DOING',
+        payload: []
+    }
+}
 
 
 //done workspace

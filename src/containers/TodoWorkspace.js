@@ -64,7 +64,7 @@ class TodoWorkspace extends Component {
                     contentLabel="Modal"
                     style={modalStyle}
     >
-                    <h1>Modal Content</h1>               
+                    <h1>Add Project</h1>               
                     <div className="form-group row">
                         <label htmlFor="project-title" className="col-2 col-form-label">Title</label>
                         <div className="col-10">
