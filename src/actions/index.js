@@ -3,7 +3,9 @@ export function addTodo() {
     //add todo here
     return {
         type: 'ADD_TODO',
-        payload: []
+        payload: [{
+            title: 'New Project'
+        }]
     }
 }
 

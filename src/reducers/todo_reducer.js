@@ -15,7 +15,7 @@ export default function(state = initialTodo, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_TODO':
-            //return new state with added project
+            return state.concat(action.payload);
         break;
         case 'CLEAR_TODO':
             console.log('running action');
