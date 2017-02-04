@@ -1,13 +1,17 @@
 //import action that adds/removes or changes project here
+import _ from 'lodash';
 var initialTodo = [
     {
-        title: 'Project1'
+        title: 'Project1',
+        id: _.uniqueId()
     },
     {
-        title: 'Project2'
+        title: 'Project2',
+        id: _.uniqueId()
     },
     {
-        title: 'Project3'
+        title: 'Project3',
+        id: _.uniqueId()
     }
 ]
 
@@ -16,11 +20,14 @@ export default function(state = initialTodo, action) {
     switch(action.type) {
         case 'ADD_TODO':
             return state.concat(action.payload);
-        break;
         case 'CLEAR_TODO':
-            console.log('running action');
             return action.payload;
-        break;
+        case 'UPDATE_TODO':
+            let updatedIndex = state.indexOf(state.find(project=>project.id===action.payload.id));
+            let newState = state.slice();
+            newState.splice(updatedIndex, 1, action.payload);
+            return newState;//replace old project with new project here;
+        default:
+            return state;
     }
-    return state;
 }

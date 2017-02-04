@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Project from './Project';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addDoing, clearDoing} from '../actions/index';
+import {addDoing, clearDoing, updateDoing} from '../actions/index';
 
 import {modalStyle} from '../App.js';
 import Modal from 'react-modal';
@@ -51,7 +51,9 @@ class DoingWorkspace extends Component {
                 Clear</button>
                 <div>
                     {this.props.doingProjects.map(project => {
-                        return <Project key={project.title} title={project.title}/>
+                        return <Project key={project.title} 
+                                        title={project.title}
+                                        workspace="doing"/>
                     }).concat(<button className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
@@ -68,7 +70,9 @@ class DoingWorkspace extends Component {
                     <div className="form-group row">
                         <label htmlFor="project-title" className="col-2 col-form-label">Title</label>
                         <div className="col-10">
-                            <input ref="projectTitle" className="form-control" type="text" id="project-title"/>
+                            <input ref="projectTitle" className="form-control" 
+                                   type="text" id="project-title"
+                                   maxLength="15"/>
                         </div>
                     </div>
                     

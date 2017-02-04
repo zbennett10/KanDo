@@ -10,6 +10,7 @@ export const modalStyle = {
     bottom: 0,
   },
   content: {
+    textAlign: 'center',
     position: 'absolute',
     top: '40px',
     left: '40px',
@@ -28,6 +29,7 @@ export const modalStyle = {
 class App extends Component {
   render() {
     return (
+
       <div className='container'>
       <Workspace/>
       </div>

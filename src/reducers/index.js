@@ -6,7 +6,7 @@ import DoneReducer from './done_reducer';
 const rootReducer = combineReducers({
   todoProjects: TodoReducer,
   doingProjects: DoingReducer,
-  doneProjects: DoneReducer
+  doneProjects: DoneReducer,
 });
 
 export default rootReducer;

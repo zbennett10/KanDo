@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import {addTodo, clearTodo} from '../actions/index';
 import Modal from 'react-modal';
 import {modalStyle} from '../App.js';
+import _ from 'lodash';
 
 
 class TodoWorkspace extends Component {
@@ -35,7 +36,8 @@ class TodoWorkspace extends Component {
     onAddProject() {
         let projectTitle = this.refs.projectTitle.value;
         this.props.addTodo({
-            title: projectTitle
+            title: projectTitle,
+            id: this.props.id
         });
         this.setState({addModalOpen: false});
     }
@@ -51,7 +53,10 @@ class TodoWorkspace extends Component {
                 Clear</button>
                 <div>
                     {this.props.todoProjects.map(project => {
-                        return <Project key={project.title} title={project.title}/>
+                        return <Project key={project.title}
+                                        id={project.id}
+                                        title={project.title}
+                                        workspace="todo"/>
                     }).concat(<button className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
@@ -68,7 +73,9 @@ class TodoWorkspace extends Component {
                     <div className="form-group row">
                         <label htmlFor="project-title" className="col-2 col-form-label">Title</label>
                         <div className="col-10">
-                            <input ref="projectTitle" className="form-control" type="text" id="project-title"/>
+                            <input ref="projectTitle" className="form-control" 
+                                   type="text" id="project-title"
+                                   maxLength="15"/>
                         </div>
                     </div>
                     

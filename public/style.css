@@ -18,3 +18,8 @@
 .btn-add {
     margin-top:  25px;
 }
+
+.card-block {
+    background: lightblue;
+    overflow: hidden;
+}

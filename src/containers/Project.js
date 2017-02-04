@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {updateTodo, updateDoing} from '../actions/index';
+import _ from 'lodash';
 
 import Modal from 'react-modal';
 import {modalStyle} from '../App.js';
@@ -8,6 +12,7 @@ class Project extends Component {
         super(props);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.onUpdateModal = this.onUpdateModal.bind(this);
 
         this.state = {
             isModalOpen : false
@@ -20,6 +25,18 @@ class Project extends Component {
 
     closeModal() {
         this.setState({isModalOpen: false});
+    }
+
+    onUpdateModal() {
+        //call action to change project state
+        if(this.props.workspace === 'todo') {
+            this.props.updateTodo({
+                title: this.refs.projectTitle.value,
+                id: this.props.id
+            });
+            this.setState({isModalOpen: false});
+        }
+        
     }
 
     render() {
@@ -44,7 +61,9 @@ class Project extends Component {
                     <div className="form-group row">
                         <label htmlFor="project-title" className="col-2 col-form-label">Title</label>
                         <div className="col-10">
-                            <input ref="projectTitle" className="form-control" type="text" id="project-title"/>
+                            <input ref="projectTitle" className="form-control" 
+                                   type="text" id="project-title"
+                                   maxLength="15"/>
                         </div>
                     </div>
                     
@@ -54,7 +73,7 @@ class Project extends Component {
                             <button className="btn btn-lg btn-danger"
                                 onClick={this.closeModal}>Close</button>
                             <button className="btn btn-lg btn-success"
-                                onClick={null}>Add</button>
+                                onClick={this.onUpdateModal}>Update</button>
                         </div>
                     </footer>
                 </Modal>
@@ -63,4 +82,10 @@ class Project extends Component {
     };
 }
 
-export default Project;
+
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ updateTodo, updateDoing}, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Project);

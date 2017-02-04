@@ -14,6 +14,13 @@ export function clearTodo() {
     }
 }
 
+export function updateTodo(project) {
+    return {
+        type: 'UPDATE_TODO',
+        payload: project
+    }
+}
+
 
 
 //doing workspace
@@ -32,5 +39,20 @@ export function clearDoing() {
     }
 }
 
+export function updateDoing(project) {
+    return {
+        type: 'UPDATE_DOING',
+        payload: project
+    }
+}
+
 
 //done workspace
+
+
+
+
+
+
+//project container
+
