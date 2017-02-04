@@ -4,10 +4,32 @@ import {bindActionCreators} from 'redux';
 import {updateTodo, updateDoing} from '../actions/index';
 import _ from 'lodash';
 
+//react dnd
+import {DragSource, DropTarget} from 'react-dnd';
+import ItemTypes from '../dndItemTypes';
+import {compose} from 'redux';
+
+//modal imports
 import Modal from 'react-modal';
 import {modalStyle} from '../App.js';
 
-class Project extends Component {
+//object that defines the project drag source
+const projectDragSource = {
+    beginDrag(props) {
+        console.log('dragging project', props);
+        return {};
+    }
+};
+
+//react dnd function that specifies props to inject into project container
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    };
+}
+
+class Project extends Component {    
     constructor(props) {
         super(props);
         this.openModal = this.openModal.bind(this);
@@ -52,8 +74,11 @@ class Project extends Component {
     }
 
     render() {
-        return(
-            <div className="card project">
+        //connect react dnd props to container on component render
+        const {isDragging, connectDragSource} = this.props;
+
+        //wrap jsx being returned in drag source
+        return connectDragSource(<div className="card project">
                 <div className="card-block">
                     <h4 className="card-title">
                         <a href="#" className="btn btn-primary"
@@ -99,14 +124,17 @@ class Project extends Component {
                     </footer>
                 </Modal>
             </div>
+        
         );
     };
 }
-
 
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ updateTodo, updateDoing}, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Project);
+//use compose to implement redux connect and react-dnd decorator
+export default compose(
+    DragSource(ItemTypes.TODO_PROJECT, projectDragSource, collect),
+connect(null, mapDispatchToProps))(Project);

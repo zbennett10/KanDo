@@ -7,7 +7,6 @@ import Modal from 'react-modal';
 import {modalStyle} from '../App.js';
 import _ from 'lodash';
 
-
 class TodoWorkspace extends Component {
     constructor(props) {
         super(props);
@@ -114,3 +113,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoWorkspace);
+
+//use compose to all Drag and drop context to be used alongside redux connect function
+// export default compose(
+//     DragDropContext(HTML5Backend),
+//     connect(mapStateToProps, mapDispatchToProps)
+// )(TodoWorkspace);
