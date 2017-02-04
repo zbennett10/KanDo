@@ -29,14 +29,26 @@ class Project extends Component {
 
     onUpdateModal() {
         //call action to change project state
-        if(this.props.workspace === 'todo') {
+        switch(this.props.workspace) {
+            case 'todo':
             this.props.updateTodo({
-                title: this.refs.projectTitle.value,
-                id: this.props.id
+                title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
+                id: this.props.id,
+                desc: this.refs.projectDesc.value
             });
             this.setState({isModalOpen: false});
+            break;
+            case 'doing':
+            this.props.updateDoing({
+                title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
+                id: this.props.id,
+                desc: this.refs.projectDesc.value
+            });
+            this.setState({isModalOpen: false});
+            break;
+            default:
+                return;
         }
-        
     }
 
     render() {
@@ -62,8 +74,17 @@ class Project extends Component {
                         <label htmlFor="project-title" className="col-2 col-form-label">Title</label>
                         <div className="col-10">
                             <input ref="projectTitle" className="form-control" 
-                                   type="text" id="project-title"
-                                   maxLength="15"/>
+                                   type="text" id="project-title" placeholder={this.props.title}
+                                   maxLength="15" />
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <label htmlFor="project-desc" className="col-2 col-form-label">Description</label>
+                        <div className="col-10">
+                            <textarea ref="projectDesc" className="form-control"
+                                row={5} 
+                                >{this.props.desc}</textarea>
                         </div>
                     </div>
                     

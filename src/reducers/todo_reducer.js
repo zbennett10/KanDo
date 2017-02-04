@@ -3,15 +3,18 @@ import _ from 'lodash';
 var initialTodo = [
     {
         title: 'Project1',
-        id: _.uniqueId()
+        id: _.uniqueId(),
+        desc: "This is project one."
     },
     {
         title: 'Project2',
-        id: _.uniqueId()
+        id: _.uniqueId(),
+        desc: "This is project two."
     },
     {
         title: 'Project3',
-        id: _.uniqueId()
+        id: _.uniqueId(),
+        desc: "This is project three."
     }
 ]
 
