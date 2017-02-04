@@ -9,3 +9,4 @@
 * ~~allow project modal to be updated~~
 * ~~figure out what add/update project modals should look like/include~~
 * refactor workspace containers where each workspace is just a generic workspace with a unique prop identifying it
+* hook up drag event handlers on Project container with actions/reducers

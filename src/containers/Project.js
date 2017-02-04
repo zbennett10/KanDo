@@ -16,20 +16,25 @@ import {modalStyle} from '../App.js';
 //object that defines the project drag source
 const projectDragSource = {
     beginDrag(props) {
-        console.log('dragging project', props);
-        return {};
+        return Object.assign({}, props);
+    },
+
+    endDrag(props, monitor) {
+        console.log('This project was dragged: ', props);
+        console.log('On top of this project: ', monitor.getDropResult());
     }
 };
 
 //object that defines the project drop target
-const projectTarget = {
+const projectDragTarget = {
     hover(targetProps, monitor) {
-        const sourceProps = monitor.getItem();
-        console.log('dragging project over another project!', sourceProps, targetProps);
+        //const sourceProps = monitor.getItem();
+        //console.log('dragging project over another project!', sourceProps, targetProps);
     },
 
     drop(targetProps, monitor) {
         console.log('dropping!');
+        return Object.assign({}, targetProps);
     }
 }
 
@@ -161,5 +166,5 @@ function mapDispatchToProps(dispatch) {
 //use compose to implement redux connect and react-dnd decorator
 export default compose(
     DragSource(ItemTypes.PROJECT, projectDragSource, collectDrag),
-    DropTarget(ItemTypes.PROJECT, projectTarget, collectDrop),
+    DropTarget(ItemTypes.PROJECT, projectDragTarget, collectDrop),
 connect(null, mapDispatchToProps))(Project);
