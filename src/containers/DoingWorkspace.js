@@ -6,6 +6,8 @@ import {addDoing, clearDoing, updateDoing} from '../actions/index';
 
 import {modalStyle} from '../App.js';
 import Modal from 'react-modal';
+import 'rc-slider/assets/index.css';
+import Slider, {Range} from 'rc-slider';
 
 class DoingWorkspace extends Component {
     constructor(props) {
@@ -14,9 +16,11 @@ class DoingWorkspace extends Component {
         this.onOpenAddModal = this.onOpenAddModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.onAddProject = this.onAddProject.bind(this);
+        this.onAdjustProjectLimit = this.onAdjustProjectLimit.bind(this);
 
         this.state = {
-            addModalOpen: false
+            addModalOpen: false,
+            projectLimit: 2
         }
     }
 
@@ -25,7 +29,8 @@ class DoingWorkspace extends Component {
     }
 
     onOpenAddModal(event) {
-        this.setState({addModalOpen: true});
+        this.props.doingProjects.length < this.state.projectLimit ? 
+        this.setState({addModalOpen: true}) : null;
     }
 
     closeModal() {
@@ -40,12 +45,23 @@ class DoingWorkspace extends Component {
         this.setState({addModalOpen: false});
     }
 
+    onAdjustProjectLimit(value) {
+        this.setState({projectLimit: value});
+    }
+
+
     render() {
         return(
             <div className="col-lg-4 col-md-4">
+                <div className="slider-container">
+                    <Slider ref="projectSlider" min={1} max={4} step={1}
+                        value={this.state.projectLimit}
+                        onChange={this.onAdjustProjectLimit}/>
+                </div>
                 <h1 className="workspace-heading">
                     Doing
                 </h1>
+                
                 <button className="btn btn-sm btn-danger"
                     onClick={this.onWorkspaceClear}>
                 Clear</button>

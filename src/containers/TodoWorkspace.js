@@ -45,7 +45,7 @@ class TodoWorkspace extends Component {
     render() {
         return(
             <div className="col-lg-4 col-md-4">
-                <h1 className="workspace-heading">
+                <h1 className="workspace-heading heading-offset">
                     Todo
                 </h1>
                 <button className="btn btn-sm btn-danger"

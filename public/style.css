@@ -24,3 +24,8 @@
     background: lightblue;
     overflow: hidden;
 }
+
+.heading-offset {
+    margin-top: 13px;
+}
+
