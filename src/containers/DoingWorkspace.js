@@ -67,7 +67,8 @@ class DoingWorkspace extends Component {
                 Clear</button>
                 <div>
                     {this.props.doingProjects.map(project => {
-                        return <Project key={project.title} 
+                        return <Project key={project.id}
+                                        id={project.id}
                                         title={project.title}
                                         workspace="doing"/>
                     }).concat(<button className="btn-add btn btn-sm btn-success"

@@ -53,7 +53,7 @@ class TodoWorkspace extends Component {
                 Clear</button>
                 <div>
                     {this.props.todoProjects.map(project => {
-                        return <Project key={project.title}
+                        return <Project key={project.id}
                                         id={project.id}
                                         title={project.title}
                                         workspace="todo"/>
