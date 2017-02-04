@@ -21,13 +21,37 @@ const projectDragSource = {
     }
 };
 
+//object that defines the project drop target
+const projectTarget = {
+    hover(targetProps, monitor) {
+        const sourceProps = monitor.getItem();
+        console.log('dragging project over another project!', sourceProps, targetProps);
+    },
+
+    drop(targetProps, monitor) {
+        console.log('dropping!');
+    }
+}
+
 //react dnd function that specifies props to inject into project container
-function collect(connect, monitor) {
+function collectDrag(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
     };
 }
+
+//function like the one above but for drop target
+function collectDrop(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        isOverCurrent: monitor.isOver({shallow: true}),
+        canDrop: monitor.canDrop(),
+        itemType: monitor.getItemType()
+    }
+}
+
 
 class Project extends Component {    
     constructor(props) {
@@ -75,10 +99,10 @@ class Project extends Component {
 
     render() {
         //connect react dnd props to container on component render
-        const {isDragging, connectDragSource} = this.props;
+        const {isDragging, connectDragSource, connectDropTarget, } = this.props;
 
         //wrap jsx being returned in drag source
-        return connectDragSource(<div className="card project">
+        return compose(connectDropTarget,connectDragSource)(<div className="card project">
                 <div className="card-block">
                     <h4 className="card-title">
                         <a href="#" className="btn btn-primary"
@@ -136,5 +160,6 @@ function mapDispatchToProps(dispatch) {
 
 //use compose to implement redux connect and react-dnd decorator
 export default compose(
-    DragSource(ItemTypes.TODO_PROJECT, projectDragSource, collect),
+    DragSource(ItemTypes.PROJECT, projectDragSource, collectDrag),
+    DropTarget(ItemTypes.PROJECT, projectTarget, collectDrop),
 connect(null, mapDispatchToProps))(Project);
