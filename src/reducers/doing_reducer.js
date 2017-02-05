@@ -11,6 +11,7 @@ export default function(state = [], action) {
             let newState = state.slice(); //create copy of current state
             newState.splice(updatedIndex, 1, action.payload); //replace old project with new project
             return newState;
+        default:
+            return state;
     }
-    return state;
 }

@@ -21,8 +21,6 @@ export function updateTodo(project) {
     }
 }
 
-
-
 //doing workspace
 
 export function addDoing(project) {

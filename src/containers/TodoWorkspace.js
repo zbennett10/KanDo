@@ -37,9 +37,10 @@ class TodoWorkspace extends Component {
         let projectDesc = this.refs.projectDesc.value;
         this.props.addTodo({
             title: projectTitle,
-            id: this.props.id,
+            id: _.uniqueId(),
             desc: projectDesc,
-            workspace: 'todo'
+            workspace: 'todo',
+            index: this.props.todoProjects.length
         });
         this.setState({addModalOpen: false});
     }
@@ -59,8 +60,9 @@ class TodoWorkspace extends Component {
                                         id={project.id}
                                         title={project.title}
                                         desc={project.desc}
+                                        index={project.index}
                                         workspace="todo"/>
-                    }).concat(<button className="btn-add btn btn-sm btn-success"
+                    }).concat(<button key="addTodoButton" className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
                 </div>
@@ -85,7 +87,7 @@ class TodoWorkspace extends Component {
                         <label htmlFor="project-desc" className="col-2 col-form-label">Description</label>
                         <div className="col-10">
                             <textarea ref="projectDesc" className="form-control"
-                                row={5} placeholder="Describe your project"></textarea>
+                                 placeholder="Describe your project"></textarea>
                         </div>
                     </div>
                     

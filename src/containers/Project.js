@@ -28,12 +28,11 @@ const projectDragSource = {
 //object that defines the project drop target
 const projectDragTarget = {
     hover(targetProps, monitor) {
-        //const sourceProps = monitor.getItem();
-        //console.log('dragging project over another project!', sourceProps, targetProps);
+        const sourceProps = monitor.getItem();
+        console.log('dragging project over another project!', sourceProps, targetProps);
     },
 
     drop(targetProps, monitor) {
-        console.log('dropping!');
         return Object.assign({}, targetProps);
     }
 }

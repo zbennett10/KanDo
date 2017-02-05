@@ -6,9 +6,6 @@ import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 class Workspace extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return(
             <div className="row text-center">

@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import Project from './Project';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addDoing, clearDoing, updateDoing} from '../actions/index';
+import {addDoing, clearDoing} from '../actions/index';
+import _ from 'lodash';
 
 import {modalStyle} from '../App.js';
 import Modal from 'react-modal';
 import 'rc-slider/assets/index.css';
-import Slider, {Range} from 'rc-slider';
+import Slider from 'rc-slider';
 
 class DoingWorkspace extends Component {
     constructor(props) {
@@ -29,8 +30,7 @@ class DoingWorkspace extends Component {
     }
 
     onOpenAddModal(event) {
-        this.props.doingProjects.length < this.state.projectLimit ? 
-        this.setState({addModalOpen: true}) : null;
+        this.props.doingProjects.length < this.state.projectLimit ? this.setState({addModalOpen: true}) : null;
     }
 
     closeModal() {
@@ -42,9 +42,10 @@ class DoingWorkspace extends Component {
         let projectDesc = this.refs.projectDesc.value;
         this.props.addDoing({
             title: projectTitle,
-            id: this.props.id,
+            id: _.uniqueId(),
             desc: projectDesc,
-            workspace: 'doing'
+            workspace: 'doing',
+            index: this.props.doingProjects.length
         });
         this.setState({addModalOpen: false});
     }
@@ -75,8 +76,9 @@ class DoingWorkspace extends Component {
                                         id={project.id}
                                         title={project.title}
                                         desc={project.desc}
-                                        workspace="doing"/>
-                    }).concat(<button className="btn-add btn btn-sm btn-success"
+                                        workspace="doing"
+                                        index={project.index}/>
+                    }).concat(<button key="addDoingButton" className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
                 </div>
@@ -101,7 +103,7 @@ class DoingWorkspace extends Component {
                         <label htmlFor="project-desc" className="col-2 col-form-label">Description</label>
                         <div className="col-10">
                             <textarea ref="projectDesc" className="form-control"
-                                row={5} placeholder="Describe your project"></textarea>
+                                 placeholder="Describe your project"></textarea>
                         </div>
                     </div>
 

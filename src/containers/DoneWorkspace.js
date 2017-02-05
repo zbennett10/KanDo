@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Project from './Project';
 
 class DoneWorkspace extends Component {
     render() {

@@ -4,17 +4,20 @@ var initialTodo = [
     {
         title: 'Project1',
         id: _.uniqueId(),
-        desc: "This is project one."
+        desc: "This is project one.",
+        index: 0
     },
     {
         title: 'Project2',
         id: _.uniqueId(),
-        desc: "This is project two."
+        desc: "This is project two.",
+        index: 1
     },
     {
         title: 'Project3',
         id: _.uniqueId(),
-        desc: "This is project three."
+        desc: "This is project three.",
+        index: 2
     }
 ]
 
