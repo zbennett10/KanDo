@@ -27,30 +27,14 @@ const projectDragSource = {
 
 //object that defines the project drop target
 const projectDragTarget = {
-    hover(targetProps, monitor, targetComponent) {
+    //on project drop call action that realign project position in workspace state
+    drop(targetProps, monitor) {
         const sourceIndex = monitor.getItem().index;
         const targetIndex = targetProps.index;
-        if(sourceIndex === targetIndex) return; //exit out of function if item is hovering over itself
-
-        //get position of component
-        const hoverRectangle = findDOMNode(targetComponent).getBoundingClientRect();
-        const hoverMidY = (hoverRectangle.bottom - hoverRectangle.top) / 2;
-        const clientOffset = monitor.getClientOffset();
-        const hoverClientY = clientOffset.y - hoverRectangle.top;
-
-        //if project being dragged is before the target project and the mouse is above 50% of target project height then exit
-        if(sourceIndex < targetIndex && hoverClientY < hoverMidY) return;
-        //if project being dragged is after the target project and the mouse is lower than 50% of target project height then exit
-        if(sourceIndex > targetIndex && hoverClientY > hoverMidY) return;
-
-        //this is where we will call action that moves projects and switches index properties of projects
         targetProps.moveTodo({
             sourceIndex: sourceIndex,
             targetIndex: targetIndex
         });
-    },
-
-    drop(targetProps, monitor) {
         return Object.assign({}, targetProps);
     }
 }
@@ -125,7 +109,18 @@ class Project extends Component {
 
     render() {
         //connect react dnd props to container on component render
-        const {isDragging, connectDragSource, connectDropTarget} = this.props;
+        const {isDragging, connectDragSource, connectDropTarget,
+                isOver, isOverCurrent} = this.props;
+
+        //displays placeholder during hover
+        if(this.props.isDragging || this.props.isOver) {
+            return compose(connectDropTarget,connectDragSource)(<div className="card project">
+                <div className="placeholder-card">
+                    
+            </div>
+            </div>
+            );
+        }
 
         //wrap jsx being returned in drag source
         return compose(connectDropTarget,connectDragSource)(<div className="card project">

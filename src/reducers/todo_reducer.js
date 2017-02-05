@@ -36,7 +36,6 @@ export default function(state = initialTodo, action) {
             updateState.splice(updatedIndex, 1, action.payload); //replace old project with new project
             return updateState;
         case 'MOVE_TODO':
-            //switch project positions here----- fix this code!
             //switch positions in state
             //switch indexes in projects
             let moveState = state.slice();
@@ -47,12 +46,6 @@ export default function(state = initialTodo, action) {
             targetProject.index = temp;
             moveState.splice(action.payload.targetIndex, 1, sourceProject);
             moveState.splice(action.payload.sourceIndex, 1 , targetProject);
-            console.log(moveState);
-            // const targetProject = moveState.splice(action.payload.targetIndex, 1, moveState[action.payload.sourceIndex]);
-            // moveState.splice(action.payload.sourceIndex, 1, targetProject);
-            // console.log(targetProject, sourceProject);
-            //moveState[action.payload.targetIndex] = moveState[action.payload.sourceIndex];
-            //moveState[action.payload.sourceIndex] = targetProject;
             return moveState;
         default:
             return state;

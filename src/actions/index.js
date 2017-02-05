@@ -53,7 +53,12 @@ export function updateDoing(project) {
 
 
 //done workspace
-
+export function moveDone(project) {
+    return {
+        type: 'MOVE_DONE',
+        payload: project
+    }
+}
 
 
 

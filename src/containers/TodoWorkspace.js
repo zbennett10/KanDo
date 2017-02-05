@@ -116,9 +116,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoWorkspace);
-
-//use compose to all Drag and drop context to be used alongside redux connect function
-// export default compose(
-//     DragDropContext(HTML5Backend),
-//     connect(mapStateToProps, mapDispatchToProps)
-// )(TodoWorkspace);
