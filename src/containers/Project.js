@@ -137,7 +137,6 @@ class Project extends Component {
                         <label htmlFor="project-desc" className="col-2 col-form-label">Description</label>
                         <div className="col-10">
                             <textarea ref="projectDesc" className="form-control"
-                                row={5} 
                                 >{this.props.desc}</textarea>
                         </div>
                     </div>
