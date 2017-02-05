@@ -43,9 +43,8 @@ const projectDragTarget = {
         //if project being dragged is after the target project and the mouse is lower than 50% of target project height then exit
         if(sourceIndex > targetIndex && hoverClientY > hoverMidY) return;
 
-        console.log(targetProps);
         //this is where we will call action that moves projects and switches index properties of projects
-        moveTodo({
+        targetProps.moveTodo({
             sourceIndex: sourceIndex,
             targetIndex: targetIndex
         });

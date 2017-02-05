@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Project from './Project';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addTodo, clearTodo} from '../actions/index';
+import {addTodo, clearTodo, moveTodo} from '../actions/index';
 import Modal from 'react-modal';
 import {modalStyle} from '../App.js';
 import _ from 'lodash';
@@ -61,7 +61,8 @@ class TodoWorkspace extends Component {
                                         title={project.title}
                                         desc={project.desc}
                                         index={project.index}
-                                        workspace="todo"/>
+                                        workspace="todo"
+                                        moveTodo={this.props.moveTodo}/>
                     }).concat(<button key="addTodoButton" className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
@@ -111,7 +112,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addTodo, clearTodo}, dispatch);
+    return bindActionCreators({addTodo, clearTodo, moveTodo}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoWorkspace);
