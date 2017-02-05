@@ -1,3 +1,5 @@
+import update from 'react-addons-update';
+
 //import action that adds/removes or changes project here
 import _ from 'lodash';
 var initialTodo = [
@@ -33,6 +35,11 @@ export default function(state = initialTodo, action) {
             let newState = state.slice(); //create copy of current state
             newState.splice(updatedIndex, 1, action.payload); //replace old project with new project
             return newState;
+        case 'MOVE_TODO':
+            //switch project positions here
+            console.log('running move todo action');
+            console.log(action.payload);
+            return null;
         default:
             return state;
     }

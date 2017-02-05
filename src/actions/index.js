@@ -21,6 +21,13 @@ export function updateTodo(project) {
     }
 }
 
+export function moveTodo(projectIndices) {
+    return {
+        type: 'MOVE_TODO',
+        payload: projectIndices
+    }
+}
+
 //doing workspace
 
 export function addDoing(project) {

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTodo, updateDoing} from '../actions/index';
+import {updateTodo, updateDoing, moveTodo} from '../actions/index';
+import {findDOMNode} from 'react-dom';
 import _ from 'lodash';
 
 //react dnd
@@ -20,16 +21,34 @@ const projectDragSource = {
     },
 
     endDrag(props, monitor) {
-        console.log('This project was dragged: ', props);
-        console.log('On top of this project: ', monitor.getDropResult());
+        
     }
 };
 
 //object that defines the project drop target
 const projectDragTarget = {
-    hover(targetProps, monitor) {
-        const sourceProps = monitor.getItem();
-        console.log('dragging project over another project!', sourceProps, targetProps);
+    hover(targetProps, monitor, targetComponent) {
+        const sourceIndex = monitor.getItem().index;
+        const targetIndex = targetProps.index;
+        if(sourceIndex === targetIndex) return; //exit out of function if item is hovering over itself
+
+        //get position of component
+        const hoverRectangle = findDOMNode(targetComponent).getBoundingClientRect();
+        const hoverMidY = (hoverRectangle.bottom - hoverRectangle.top) / 2;
+        const clientOffset = monitor.getClientOffset();
+        const hoverClientY = clientOffset.y - hoverRectangle.top;
+
+        //if project being dragged is before the target project and the mouse is above 50% of target project height then exit
+        if(sourceIndex < targetIndex && hoverClientY < hoverMidY) return;
+        //if project being dragged is after the target project and the mouse is lower than 50% of target project height then exit
+        if(sourceIndex > targetIndex && hoverClientY > hoverMidY) return;
+
+        console.log(targetProps);
+        //this is where we will call action that moves projects and switches index properties of projects
+        moveTodo({
+            sourceIndex: sourceIndex,
+            targetIndex: targetIndex
+        });
     },
 
     drop(targetProps, monitor) {
@@ -84,7 +103,9 @@ class Project extends Component {
             this.props.updateTodo({
                 title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
                 id: this.props.id,
-                desc: this.refs.projectDesc.value
+                desc: this.refs.projectDesc.value,
+                index: this.props.index,
+                workspace: this.props.workspace
             });
             this.setState({isModalOpen: false});
             break;
@@ -92,7 +113,9 @@ class Project extends Component {
             this.props.updateDoing({
                 title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
                 id: this.props.id,
-                desc: this.refs.projectDesc.value
+                desc: this.refs.projectDesc.value,
+                index: this.props.index,
+                workspace: this.props.workspace
             });
             this.setState({isModalOpen: false});
             break;
@@ -103,7 +126,7 @@ class Project extends Component {
 
     render() {
         //connect react dnd props to container on component render
-        const {isDragging, connectDragSource, connectDropTarget, } = this.props;
+        const {isDragging, connectDragSource, connectDropTarget} = this.props;
 
         //wrap jsx being returned in drag source
         return compose(connectDropTarget,connectDragSource)(<div className="card project">
@@ -158,7 +181,7 @@ class Project extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ updateTodo, updateDoing}, dispatch);
+    return bindActionCreators({ updateTodo, updateDoing, moveTodo}, dispatch);
 }
 
 //use compose to implement redux connect and react-dnd decorator
