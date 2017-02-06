@@ -53,7 +53,7 @@ export function todoToDone(project) {
     }
 }
 
-//doing workspace
+//doing workspace ---------------------------------------------------
 
 export function addDoing(project) {
     return {
@@ -76,8 +76,40 @@ export function updateDoing(project) {
     }
 }
 
+export function deleteDoing(project) {
+    return {
+        type: 'DELETE_DOING',
+        payload: project
+    }
+}
 
-//done workspace
+export function moveDoingWithin(projectIndices) {
+    return {
+        type: 'MOVE_DOING_WITHIN',
+        payload: projectIndices
+    }
+}
+
+export function doingToTodo(project) { // use redux thunk to return add doing action - transfer project to be added        //also remove todo project from todoprojects state
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'ADD_TODO',
+            payload: [project]
+        })
+    }
+}
+
+export function doingToDone(project) {
+    return (dispatch) => {
+        dispatch({
+            type: 'ADD_DONE',
+            payload: [project]
+        })
+    }
+}
+
+
+//done workspace-----------------------------------------------
 export function moveDone(project) {
     return {
         type: 'MOVE_DONE',
@@ -114,7 +146,30 @@ export function updateDone(project) {
     }
 }
 
+export function moveDoneWithin(projectIndices) {
+    return {
+        type: 'MOVE_DONE_WITHIN',
+        payload: projectIndices
+    }
+}
 
+export function doneToTodo(project) { // use redux thunk to return add doing action - transfer project to be added        //also remove todo project from todoprojects state
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'ADD_TODO',
+            payload: [project]
+        })
+    }
+}
+
+export function doneToDoing(project) {
+    return (dispatch) => {
+        dispatch({
+            type: 'ADD_DOING',
+            payload: [project]
+        })
+    }
+}
 
 //project container
 

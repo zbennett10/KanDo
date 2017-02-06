@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {moveDone} from '../actions/index';
+import {addDone, clearDone, moveDoneWithin, doneToDoing, deleteDone, doneToTodo} from '../actions/index';
 import {compose, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Project from './Project';
@@ -35,6 +35,7 @@ class DoneWorkspace extends Component {
 
 
     render() {
+         const {connectDropTarget} = this.props;
 
         if(this.props.doneProjects.length < 1) {
             return compose(connectDropTarget)(
@@ -44,7 +45,7 @@ class DoneWorkspace extends Component {
                 </div>
             );
         }
-        const {connectDropTarget} = this.props;
+       
 
         return (
             <div className="col-lg-4 col-md-4">
@@ -58,7 +59,11 @@ class DoneWorkspace extends Component {
                                         desc={project.desc}
                                         workspace="done"
                                         index={project.index}
-                                        totalProjects={this.props.doneProjects.length}/>
+                                        totalProjects={this.props.doneProjects.length}
+                                        moveDoneWithin={this.props.moveDoneWithin}
+                                        doneToTodo={this.props.doneToTodo}
+                                        doneToDoing={this.props.doneToDoing}
+                                        deleteDone={this.props.deleteDone}/>
                 })}
             </div>
         );
@@ -70,7 +75,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({moveDone}, dispatch);
+    return bindActionCreators({addDone, clearDone, moveDoneWithin, doneToDoing, deleteDone, doneToTodo}, dispatch);
 }
 
 export default compose(

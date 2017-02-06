@@ -9,9 +9,6 @@ var initialTodo = [
     }
 ];
 
-
-
-
 export default function(state = initialTodo, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
@@ -30,8 +27,19 @@ export default function(state = initialTodo, action) {
             let updateState = state.slice(); //create copy of current state
             updateState.splice(updatedIndex, 1, action.payload); //replace old project with new project
             return updateState;
-        case 'MOVE_DONE':
-            return state;
+        case 'MOVE_DONE_WITHIN':
+            //switch positions in state
+            //switch indexes in projects
+            let moveState = state.slice();
+            const sourceProject = moveState[action.payload.sourceIndex];
+            const targetProject = moveState[action.payload.targetIndex];
+            let temp = sourceProject.index;
+            sourceProject.index = targetProject.index;
+            targetProject.index = temp;
+            
+            moveState.splice(action.payload.targetIndex, 1, sourceProject);
+            moveState.splice(action.payload.sourceIndex, 1 , targetProject);
+            return moveState;
         default:
             return state;
     }

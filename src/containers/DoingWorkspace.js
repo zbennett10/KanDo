@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Project from './Project';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addDoing, clearDoing} from '../actions/index';
+import {addDoing, clearDoing, moveDoingWithin, doingToTodo, deleteDoing, doingToDone} from '../actions/index';
 import _ from 'lodash';
 
 import {modalStyle} from '../App.js';
@@ -47,7 +47,11 @@ class DoingWorkspace extends Component {
             workspace: 'doing',
             index: this.props.doingProjects.length,
             projectLimit: this.state.projectLimit,
-            totalProjects: this.props.doingProjects.length
+            totalProjects: this.props.doingProjects.length,
+            moveDoingWithin: this.props.moveDoingWithin,
+            doingToTodo: this.props.doingToTodo,
+            doingToDone: this.props.doingToDone,
+            deleteDoing: this.props.deleteDoing
         });
         this.setState({addModalOpen: false});
     }
@@ -81,7 +85,11 @@ class DoingWorkspace extends Component {
                                         workspace="doing"
                                         index={project.index}
                                         projectLimit={this.state.projectLimit}
-                                        totalProjects={this.props.doingProjects.length}/>
+                                        totalProjects={this.props.doingProjects.length}
+                                        moveDoingWithin={this.props.moveDoingWithin}
+                                        doingToTodo={this.props.doingToTodo}
+                                        doingToDone={this.props.doingToDone}
+                                        deleteDoing={this.props.deleteDoing}/>
                     }).concat(<button key="addDoingButton" className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
@@ -131,7 +139,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addDoing, clearDoing}, dispatch);
+    return bindActionCreators({addDoing, clearDoing, moveDoingWithin, doingToTodo, deleteDoing, doingToDone}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoingWorkspace);

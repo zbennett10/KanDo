@@ -30,6 +30,7 @@ const projectDragTarget = {
     //on project drop call action that realign project position in workspace state
     drop(targetProps, monitor) {
         const sourceProps = monitor.getItem();
+        //moving todo projects within todo workspace
         if(targetProps.workspace === 'todo' && sourceProps.workspace === 'todo') {
             const sourceIndex = sourceProps.index;
             const targetIndex = targetProps.index;
@@ -37,9 +38,10 @@ const projectDragTarget = {
                 sourceIndex: sourceIndex,
                 targetIndex: targetIndex
             });
+            //moving todo projects to doing workspace
         } else if (targetProps.workspace === 'doing' && sourceProps.workspace ==='todo') {
             //if project limit has been reached return and don't drop
-            if(targetProps.projectLimit === targetProps.totalProjects) {
+            if(targetProps.projectLimit <= targetProps.totalProjects) {
                 return Object.assign({}, targetProps);
             } else {
                 //update sourceProps workspace property to match the switch
@@ -47,11 +49,49 @@ const projectDragTarget = {
                 sourceProps.todoToDoing(sourceProps);
                 sourceProps.deleteTodo(sourceProps);
             }
+            //moving todo projects to done workspace
         } else if (targetProps.workspace === 'done' && sourceProps.workspace === 'todo') {
             sourceProps.workspace = 'done';
             sourceProps.todoToDone(sourceProps);
             sourceProps.deleteTodo(sourceProps);
         }
+        //moving doing project within doing workspace
+        else if (targetProps.workspace === 'doing' && sourceProps.workspace === 'doing') {
+            const sourceIndex = sourceProps.index;
+            const targetIndex = targetProps.index;
+            targetProps.moveDoingWithin({
+                sourceIndex: sourceIndex,
+                targetIndex: targetIndex
+            });
+        }
+        //moving doing project to todo workspace
+        else if (targetProps.workspace ==='todo' && sourceProps.workspace === 'doing') {
+            sourceProps.doingToTodo(sourceProps);
+            sourceProps.deleteDoing(sourceProps);
+        } 
+        //moving doing  project to done workspace
+        else if (targetProps.workspace === 'done' && sourceProps.workspace === 'doing') {
+            sourceProps.workspace = 'done';
+            sourceProps.doingToDone(sourceProps);
+            sourceProps.deleteDoing(sourceProps);
+        }
+        //moving done project to todo workspace
+        else if(targetProps.workspace === 'todo' && sourceProps.workspace === 'done') {
+            sourceProps.workspace = 'todo';
+            sourceProps.doneToTodo(sourceProps);
+            sourceProps.deleteDone(sourceProps);
+        }
+        //moving done project to doing workspace
+        else if(targetProps.workspace === 'doing' && sourceProps.workspace === 'done') {
+            if(targetProps.projectLimit <= targetProps.totalProjects) {
+                return Object.assign({}, targetProps);
+            } else {   
+                sourceProps.workspace = 'doing';
+                sourceProps.doneToDoing(sourceProps);
+                sourceProps.deleteDone(sourceProps);
+            }
+        }
+
         return Object.assign({}, targetProps);
     }
 }
@@ -119,7 +159,12 @@ class Project extends Component {
                     desc: this.refs.projectDesc.value,
                     index: this.props.index,
                     workspace: this.props.workspace,
-                    //add dnd moving methods to props here
+                    projectLimit: this.props.projectLimit,
+                    totalProjects: this.props.totalProjects,
+                    moveDoingWithin: this.props.moveDoingWithin,
+                    doingToTodo: this.props.doingToTodo,
+                    doingToDone: this.props.doingToDone,
+                    deleteDoing: this.props.deleteDoing
                 });
                 this.setState({isModalOpen: false});
             break;
@@ -129,8 +174,11 @@ class Project extends Component {
                     id: this.props.id,
                     desc: this.refs.projectDesc.value,
                     index: this.props.index,
-                    workspace: this.props.workspace
-                    //add dnd moving methods to props here           
+                    workspace: this.props.workspace,
+                    moveDoneWithin: this.props.moveDoneWithin,
+                    doneToTodo: this.props.doneToTodo,
+                    doneToDoing: this.props.doneToDoing,
+                    deleteDone: this.props.deleteDone       
                 });
                 this.setState({isModalOpen: false});
             default:
