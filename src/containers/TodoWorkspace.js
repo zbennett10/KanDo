@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Project from './Project';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addTodo, clearTodo, moveTodoWithin, todoToDoing, deleteTodo} from '../actions/index';
+import {addTodo, clearTodo, moveTodoWithin, todoToDoing, deleteTodo, todoToDone} from '../actions/index';
 import Modal from 'react-modal';
 import {modalStyle} from '../App.js';
 import _ from 'lodash';
@@ -42,7 +42,8 @@ class TodoWorkspace extends Component {
             workspace: 'todo',
             index: this.props.todoProjects.length,
             moveTodoWithin: this.props.moveTodoWithin,
-            todoToDoing: this.props.todoToDoing
+            todoToDoing: this.props.todoToDoing,
+            todoToDone: this.props.todoToDone
         });
         this.setState({addModalOpen: false});
     }
@@ -66,7 +67,8 @@ class TodoWorkspace extends Component {
                                         workspace="todo"
                                         moveTodoWithin={this.props.moveTodoWithin}
                                         todoToDoing={this.props.todoToDoing}
-                                        deleteTodo={this.props.deleteTodo}/>
+                                        deleteTodo={this.props.deleteTodo}
+                                        todoToDone={this.props.todoToDone}/>
                     }).concat(<button key="addTodoButton" className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}
@@ -116,7 +118,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addTodo, clearTodo, moveTodoWithin, todoToDoing, deleteTodo}, dispatch);
+    return bindActionCreators({addTodo, clearTodo, moveTodoWithin, 
+            todoToDone, todoToDoing, deleteTodo}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoWorkspace);

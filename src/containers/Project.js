@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTodo, updateDoing} from '../actions/index';
+import {updateTodo, updateDoing, updateDone} from '../actions/index';
 import {findDOMNode} from 'react-dom';
 import _ from 'lodash';
 
@@ -39,7 +39,6 @@ const projectDragTarget = {
             });
         } else if (targetProps.workspace === 'doing' && sourceProps.workspace ==='todo') {
             //if project limit has been reached return and don't drop
-            console.log(targetProps.projectLimit, targetProps.totalProjects);
             if(targetProps.projectLimit === targetProps.totalProjects) {
                 return Object.assign({}, targetProps);
             } else {
@@ -48,6 +47,10 @@ const projectDragTarget = {
                 sourceProps.todoToDoing(sourceProps);
                 sourceProps.deleteTodo(sourceProps);
             }
+        } else if (targetProps.workspace === 'done' && sourceProps.workspace === 'todo') {
+            sourceProps.workspace = 'done';
+            sourceProps.todoToDone(sourceProps);
+            sourceProps.deleteTodo(sourceProps);
         }
         return Object.assign({}, targetProps);
     }
@@ -97,29 +100,39 @@ class Project extends Component {
         //call action to change project state
         switch(this.props.workspace) {
             case 'todo':
-            this.props.updateTodo({
-                title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
-                id: this.props.id,
-                desc: this.refs.projectDesc.value,
-                index: this.props.index,
-                workspace: this.props.workspace,
-                moveTodoWithin: this.props.moveTodoWithin,
-                todoToDoing: this.props.todoToDoing
-            });
-            this.setState({isModalOpen: false});
+                this.props.updateTodo({
+                    title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
+                    id: this.props.id,
+                    desc: this.refs.projectDesc.value,
+                    index: this.props.index,
+                    workspace: this.props.workspace,
+                    moveTodoWithin: this.props.moveTodoWithin,
+                    todoToDoing: this.props.todoToDoing,
+                    todoToDone: this.props.todoToDone
+                });
+                this.setState({isModalOpen: false});
             break;
             case 'doing':
-            this.props.updateDoing({
-                title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
-                id: this.props.id,
-                desc: this.refs.projectDesc.value,
-                index: this.props.index,
-                workspace: this.props.workspace,
-                moveTodoWithin: this.props.moveTodoWithin,
-                todoToDoing: this.props.todoToDoing
-            });
-            this.setState({isModalOpen: false});
+                this.props.updateDoing({
+                    title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
+                    id: this.props.id,
+                    desc: this.refs.projectDesc.value,
+                    index: this.props.index,
+                    workspace: this.props.workspace,
+                    //add dnd moving methods to props here
+                });
+                this.setState({isModalOpen: false});
             break;
+            case 'done':
+                this.props.updateDone({
+                    title: this.refs.projectTitle.value ? this.refs.projectTitle.value : this.props.title, //if user enters new value - replace old project title. else old project title
+                    id: this.props.id,
+                    desc: this.refs.projectDesc.value,
+                    index: this.props.index,
+                    workspace: this.props.workspace
+                    //add dnd moving methods to props here           
+                });
+                this.setState({isModalOpen: false});
             default:
                 return;
         }
@@ -193,7 +206,7 @@ class Project extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ updateTodo, updateDoing}, dispatch);
+    return bindActionCreators({ updateTodo, updateDoing, updateDone}, dispatch);
 }
 
 //use compose to implement redux connect and react-dnd decorator

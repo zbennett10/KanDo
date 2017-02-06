@@ -44,6 +44,15 @@ export function todoToDoing(project) { // use redux thunk to return add doing ac
     }
 }
 
+export function todoToDone(project) {
+    return (dispatch) => {
+        dispatch({
+            type: 'ADD_DONE',
+            payload: [project]
+        })
+    }
+}
+
 //doing workspace
 
 export function addDoing(project) {
@@ -76,7 +85,34 @@ export function moveDone(project) {
     }
 }
 
+export function addDone(project) {
+    //add todo here
+    return {
+        type: 'ADD_DONE',
+        payload: [project]
+    }
+}
 
+export function clearDone() {
+    return {
+        type: 'CLEAR_DONE',
+        payload: []
+    }
+}
+
+export function deleteDone(project) {
+    return {
+        type: 'DELETE_DONE',
+        payload: project
+    }
+}
+
+export function updateDone(project) {
+    return {
+        type: 'UPDATE_DONE',
+        payload: project
+    }
+}
 
 
 
