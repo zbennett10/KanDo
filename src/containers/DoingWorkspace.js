@@ -45,7 +45,9 @@ class DoingWorkspace extends Component {
             id: _.uniqueId(),
             desc: projectDesc,
             workspace: 'doing',
-            index: this.props.doingProjects.length
+            index: this.props.doingProjects.length,
+            projectLimit: this.state.projectLimit,
+            totalProjects: this.props.doingProjects.length
         });
         this.setState({addModalOpen: false});
     }
@@ -77,7 +79,9 @@ class DoingWorkspace extends Component {
                                         title={project.title}
                                         desc={project.desc}
                                         workspace="doing"
-                                        index={project.index}/>
+                                        index={project.index}
+                                        projectLimit={this.state.projectLimit}
+                                        totalProjects={this.props.doingProjects.length}/>
                     }).concat(<button key="addDoingButton" className="btn-add btn btn-sm btn-success"
                         onClick={this.onOpenAddModal}
                         >Add</button>)}

@@ -38,10 +38,16 @@ const projectDragTarget = {
                 targetIndex: targetIndex
             });
         } else if (targetProps.workspace === 'doing' && sourceProps.workspace ==='todo') {
-            //update sourceProps workspace property to match the switch
-            sourceProps.workspace = 'doing';
-            sourceProps.todoToDoing(sourceProps);
-            sourceProps.deleteTodo(sourceProps);
+            //if project limit has been reached return and don't drop
+            console.log(targetProps.projectLimit, targetProps.totalProjects);
+            if(targetProps.projectLimit === targetProps.totalProjects) {
+                return Object.assign({}, targetProps);
+            } else {
+                //update sourceProps workspace property to match the switch
+                sourceProps.workspace = 'doing';
+                sourceProps.todoToDoing(sourceProps);
+                sourceProps.deleteTodo(sourceProps);
+            }
         }
         return Object.assign({}, targetProps);
     }
