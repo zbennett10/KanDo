@@ -3,6 +3,8 @@ export default function(state = [], action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_DOING':
+            console.log('adding to doing workspace');
+            action.payload.index = state.length;
             return state.concat(action.payload);
         case 'CLEAR_DOING':
             return action.payload;

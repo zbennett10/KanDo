@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTodo, updateDoing, moveTodo} from '../actions/index';
+import {updateTodo, updateDoing} from '../actions/index';
 import {findDOMNode} from 'react-dom';
 import _ from 'lodash';
 
@@ -29,12 +29,20 @@ const projectDragSource = {
 const projectDragTarget = {
     //on project drop call action that realign project position in workspace state
     drop(targetProps, monitor) {
-        const sourceIndex = monitor.getItem().index;
-        const targetIndex = targetProps.index;
-        targetProps.moveTodo({
-            sourceIndex: sourceIndex,
-            targetIndex: targetIndex
-        });
+        const sourceProps = monitor.getItem();
+        if(targetProps.workspace === 'todo' && sourceProps.workspace === 'todo') {
+            const sourceIndex = sourceProps.index;
+            const targetIndex = targetProps.index;
+            targetProps.moveTodoWithin({
+                sourceIndex: sourceIndex,
+                targetIndex: targetIndex
+            });
+        } else if (targetProps.workspace === 'doing' && sourceProps.workspace ==='todo') {
+            //update sourceProps workspace property to match the switch
+            sourceProps.workspace = 'doing';
+            sourceProps.todoToDoing(sourceProps);
+            sourceProps.deleteTodo(sourceProps);
+        }
         return Object.assign({}, targetProps);
     }
 }
@@ -88,7 +96,9 @@ class Project extends Component {
                 id: this.props.id,
                 desc: this.refs.projectDesc.value,
                 index: this.props.index,
-                workspace: this.props.workspace
+                workspace: this.props.workspace,
+                moveTodoWithin: this.props.moveTodoWithin,
+                todoToDoing: this.props.todoToDoing
             });
             this.setState({isModalOpen: false});
             break;
@@ -98,7 +108,9 @@ class Project extends Component {
                 id: this.props.id,
                 desc: this.refs.projectDesc.value,
                 index: this.props.index,
-                workspace: this.props.workspace
+                workspace: this.props.workspace,
+                moveTodoWithin: this.props.moveTodoWithin,
+                todoToDoing: this.props.todoToDoing
             });
             this.setState({isModalOpen: false});
             break;
@@ -175,7 +187,7 @@ class Project extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ updateTodo, updateDoing, moveTodo}, dispatch);
+    return bindActionCreators({ updateTodo, updateDoing}, dispatch);
 }
 
 //use compose to implement redux connect and react-dnd decorator

@@ -14,6 +14,13 @@ export function clearTodo() {
     }
 }
 
+export function deleteTodo(project) {
+    return {
+        type: 'DELETE_TODO',
+        payload: project
+    }
+}
+
 export function updateTodo(project) {
     return {
         type: 'UPDATE_TODO',
@@ -21,10 +28,20 @@ export function updateTodo(project) {
     }
 }
 
-export function moveTodo(projectIndices) {
+export function moveTodoWithin(projectIndices) {
     return {
-        type: 'MOVE_TODO',
+        type: 'MOVE_TODO_WITHIN',
         payload: projectIndices
+    }
+}
+
+export function todoToDoing(project) { // use redux thunk to return add doing action - transfer project to be added
+    console.log("attempting to transfer to doing workspace");           //also remove todo project from todoprojects state
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'ADD_DOING',
+            payload: [project]
+        })
     }
 }
 

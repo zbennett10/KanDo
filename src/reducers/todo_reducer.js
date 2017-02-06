@@ -28,6 +28,11 @@ export default function(state = initialTodo, action) {
     switch(action.type) {
         case 'ADD_TODO':
             return state.concat(action.payload);
+        case 'DELETE_TODO':
+            console.log(action.payload);
+            let deleteState = state.slice();
+            deleteState.splice(state.indexOf(state.find(project=>project.id===action.payload.id)),1);
+            return deleteState;
         case 'CLEAR_TODO':
             return action.payload;
         case 'UPDATE_TODO':
@@ -35,7 +40,7 @@ export default function(state = initialTodo, action) {
             let updateState = state.slice(); //create copy of current state
             updateState.splice(updatedIndex, 1, action.payload); //replace old project with new project
             return updateState;
-        case 'MOVE_TODO':
+        case 'MOVE_TODO_WITHIN':
             //switch positions in state
             //switch indexes in projects
             let moveState = state.slice();
