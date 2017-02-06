@@ -28,10 +28,11 @@ export default function(state = initialTodo, action) {
     switch(action.type) {
         case 'ADD_TODO':
             return state.concat(action.payload);
-        case 'DELETE_TODO':
-            console.log(action.payload);
+        case 'DELETE_TODO': 
             let deleteState = state.slice();
-            deleteState.splice(state.indexOf(state.find(project=>project.id===action.payload.id)),1);
+            const deletedIndex = state.indexOf(state.find(project=>project.id===action.payload.id));
+            deleteState.splice(deletedIndex,1);
+            deleteState.forEach(project => project.index > deletedIndex ? project.index -= 1 : project.index); //for every value in state array that is at a later index than the deleted index, substract its index value by 1
             return deleteState;
         case 'CLEAR_TODO':
             return action.payload;
@@ -49,6 +50,7 @@ export default function(state = initialTodo, action) {
             let temp = sourceProject.index;
             sourceProject.index = targetProject.index;
             targetProject.index = temp;
+            
             moveState.splice(action.payload.targetIndex, 1, sourceProject);
             moveState.splice(action.payload.sourceIndex, 1 , targetProject);
             return moveState;

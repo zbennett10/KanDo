@@ -35,8 +35,7 @@ export function moveTodoWithin(projectIndices) {
     }
 }
 
-export function todoToDoing(project) { // use redux thunk to return add doing action - transfer project to be added
-    console.log("attempting to transfer to doing workspace");           //also remove todo project from todoprojects state
+export function todoToDoing(project) { // use redux thunk to return add doing action - transfer project to be added        //also remove todo project from todoprojects state
     return (dispatch, getState) => {
         dispatch({
             type: 'ADD_DOING',
