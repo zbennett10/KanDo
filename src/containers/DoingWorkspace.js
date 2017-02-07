@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Project from './Project';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {bindActionCreators} from 'redux';
 import {addDoing, clearDoing, moveDoingWithin, doingToTodo, deleteDoing, doingToDone} from '../actions/index';
 import _ from 'lodash';
@@ -9,6 +10,25 @@ import {modalStyle} from '../App.js';
 import Modal from 'react-modal';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+
+import {DropTarget} from 'react-dnd';
+import ItemTypes from '../dndItemTypes';
+
+const projectDragTarget = {
+    drop(targetProps, monitor) {
+        return Object.assign({}, targetProps);
+    }
+}
+
+function collectDrop(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+        isOverCurrent: monitor.isOver({shallow: true}),
+        canDrop: monitor.canDrop(),
+        itemType: monitor.getItemType()
+    }
+}
 
 class DoingWorkspace extends Component {
     constructor(props) {
@@ -62,6 +82,7 @@ class DoingWorkspace extends Component {
 
 
     render() {
+        const {connectDropTarget} = this.props;
         return(
             <div className="col-lg-4 col-md-4">
                 <div className="slider-container">
@@ -142,4 +163,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({addDoing, clearDoing, moveDoingWithin, doingToTodo, deleteDoing, doingToDone}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DoingWorkspace);
+
+export default compose(
+    DropTarget(ItemTypes.PROJECT, projectDragTarget, collectDrop),
+connect(mapStateToProps, mapDispatchToProps))(DoingWorkspace);

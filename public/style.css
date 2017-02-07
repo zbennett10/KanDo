@@ -1,10 +1,10 @@
+body {
+    font-family: 'montserrat';
+}
+
 .workspace {
     display: inline-block;
     margin-right: 25px;
-}
-
-.workspace-main {
-
 }
 
 .project {
@@ -26,6 +26,12 @@
 }
 
 .placeholder-card {
+    background: lightblue;
+    border: 1px dashed black;
+    height: 90px;
+}
+
+.hidden-card {
     background: lightblue;
     border: 1px dashed black;
     height: 90px;

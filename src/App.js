@@ -3,7 +3,7 @@ import Workspace from './components/Workspace';
 
 export const modalStyle = {
   overlay: {
-    position: 'fixed',
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
@@ -13,9 +13,9 @@ export const modalStyle = {
     textAlign: 'center',
     position: 'absolute',
     top: '40px',
-    left: '40px',
+    left: '300px',
     bottom: '40px',
-    right: '40px',
+    right: '300px',
     border: '1px solid #ccc',
     background: '#fff',
     overflow: 'auto',
