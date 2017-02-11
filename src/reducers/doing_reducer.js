@@ -22,7 +22,7 @@ export default function(state = doingStorage, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_DOING':
-            action.payload.index = state.length;
+            action.payload[0].index = state.length;
             setDoingStorage(state.concat(action.payload));
             return state.concat(action.payload);
         case 'DELETE_DOING':

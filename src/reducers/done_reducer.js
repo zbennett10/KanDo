@@ -24,6 +24,7 @@ export default function(state = doneStorage, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_DONE':
+            action.payload[0].index = state.length;
             setDoneStorage(state.concat(action.payload));
             return state.concat(action.payload);
         case 'DELETE_DONE': 

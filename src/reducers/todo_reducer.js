@@ -36,6 +36,7 @@ export default function(state = todoStorage, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_TODO':
+            action.payload[0].index = state.length;
             setTodoStorage(state.concat(action.payload));
             return state.concat(action.payload);
         case 'DELETE_TODO': 

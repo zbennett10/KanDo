@@ -130,6 +130,7 @@ class Project extends Component {
 
     openModal(event) {
         this.setState({isModalOpen: true});
+        console.log(this.props.key, this.props.index);
     }
 
     closeModal() {
