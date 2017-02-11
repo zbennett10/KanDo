@@ -21,12 +21,16 @@
     <title>React App</title>
   </head>
   <body>
-    <header class="jumbotron text-center">
-      <h1 class="workspace-heading">KanDo</h1>
-      <h3>A lightweight productivity tool</h3>
-    </header>
+    <div class="container">
+        <header class="jumbotron text-center">
+          <h1 class="workspace-heading">KanDo</h1>
+          <h3>A lightweight productivity tool</h3>
+        </header>
+    </div>
     <div id="root"></div>
-    <footer class="jumbotron text-center"></footer>
+    <div class="container">
+      <footer class="jumbotron text-center"> &copy;Zachary Bennett <span id="copyrightYear"></span></footer>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -40,5 +44,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script>
+      document.getElementById('copyrightYear').innerText = (new Date().getFullYear());
+    </script>
   </body>
 </html>
