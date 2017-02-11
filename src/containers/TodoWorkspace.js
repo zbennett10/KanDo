@@ -43,7 +43,8 @@ class TodoWorkspace extends Component {
             index: this.props.todoProjects.length,
             moveTodoWithin: this.props.moveTodoWithin,
             todoToDoing: this.props.todoToDoing,
-            todoToDone: this.props.todoToDone
+            todoToDone: this.props.todoToDone,
+            deleteTodo: this.props.deleteTodo
         });
         this.setState({addModalOpen: false});
     }
