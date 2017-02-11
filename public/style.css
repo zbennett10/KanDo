@@ -1,5 +1,17 @@
 body {
     font-family: 'montserrat';
+    background-color: #438496;
+}
+
+.main-body-container {
+ background-color: white;
+ border-radius: 10px;
+ margin-bottom: 35px;
+ padding: 20px;
+}
+
+header {
+    margin-top: 35px;
 }
 
 .workspace {
