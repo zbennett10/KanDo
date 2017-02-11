@@ -92,6 +92,16 @@ const projectDragTarget = {
             }
         }
 
+        //moving done project within another done project
+        else if(targetProps.workspace === 'done' && sourceProps.workspace == 'done') {
+            const sourceIndex = sourceProps.index;
+            const targetIndex = targetProps.index;
+            targetProps.moveDoneWithin({
+                sourceIndex: sourceIndex,
+                targetIndex: targetIndex
+            });
+        }
+
         return Object.assign({}, targetProps);
     }
 }

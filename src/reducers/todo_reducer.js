@@ -6,7 +6,7 @@ import _ from 'lodash';
 //if this is the user's first time entering the website
 if(!localStorage._KandoTodo) {
     var initialTodo = [
-        {
+        {   
             title: 'Project1',
             id: 78678,
             desc: "This is project one.",
