@@ -14,7 +14,7 @@
 * set up workspaces to allow dropping when they are empty
 * ~~configure workspace to exchange projects (use add project action - determine what workspace via the workspace property)
 * ~~get moveTodo action to be called within hover function~~
-* fix done workspace bug that won't let it be moved from within
+* fix done workspace bug that won't let it be moved from within (it might be indexes - check that)
 
 
 ### Frameworks/Libraries to implement in future:

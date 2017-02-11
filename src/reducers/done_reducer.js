@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 //if this is the user's first time entering the website
 if(!localStorage._KandoDone) {
-    var initialDone = [
+    var initialDone= [
         {
             title: 'DoneProject',
             id: 4545545,
@@ -15,12 +15,12 @@ if(!localStorage._KandoDone) {
 }
 
 
-var todoStorage = JSON.parse(localStorage.getItem("_KandoDone"));
+var doneStorage = JSON.parse(localStorage.getItem("_KandoDone"));
 
 
 
 
-export default function(state = todoStorage, action) {
+export default function(state = doneStorage, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_DONE':
