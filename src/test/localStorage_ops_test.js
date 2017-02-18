@@ -34,8 +34,8 @@ describe('Workspace Local Storage Operations', () => {
     });
 
     it('can use fallback data when local storage is empty', () => {
-        _kandoStorage = JSON.stringify([]);
-        const state = JSON.parse(_kandoStorage)  || fallbackData;
+        _kandoStorage = null
+        const state = _kandoStorage  || fallbackData;
         assert(state.length > 0);
     });
 
