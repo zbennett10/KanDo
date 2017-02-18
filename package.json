@@ -6,6 +6,7 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "mocha": "^3.2.0",
     "rc-slider": "^6.0.1",
     "react": "^15.4.2",
     "react-addons-update": "^15.4.2",

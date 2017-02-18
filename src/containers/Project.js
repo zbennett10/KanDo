@@ -246,6 +246,32 @@ class Project extends Component {
                                 >{this.props.desc}</textarea>
                         </div>
                     </div>
+                
+               
+                    <div className="form-group row">
+                        <label htmlFor="project-goal" className="col-2 col-form-label">Goals</label>
+                        <div className="col-10">
+                        <div className="input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" checked={true}/>
+                            </span>
+                        <input type="text" class="form-control"></input>
+                        </div>
+                        <div className="input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" checked={true}/>
+                            </span>
+                        <input type="text" class="form-control"></input>
+                        </div>
+                        <div className="input-group">
+                            <span className="input-group-addon">
+                                <input type="radio" checked={true}/>
+                            </span>
+                        <input type="text" class="form-control"></input>
+                        </div>
+                        </div>
+                    </div>
+                
                     
 
                     <footer>

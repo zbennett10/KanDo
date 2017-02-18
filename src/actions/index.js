@@ -171,5 +171,3 @@ export function doneToDoing(project) {
     }
 }
 
-//project container
-
