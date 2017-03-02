@@ -3,33 +3,6 @@ import update from 'react-addons-update';
 //import action that adds/removes or changes project here
 import _ from 'lodash';
 
-//if this is the user's first time entering the website
-if(!localStorage._KandoTodo) {
-    var initialTodo = [
-        {   
-            title: 'Project1',
-            id: 78678,
-            desc: "This is project one.",
-            index: 0
-        },
-        {
-            title: 'Project2',
-            id: 1029238,
-            desc: "This is project two.",
-            index: 1
-        },
-        {
-            title: 'Project3',
-            id: 565654,
-            desc: "This is project three.",
-            index: 2
-        }
-    ]
-
-    setTodoStorage(initialTodo);
-}
-
-
 var todoStorage = JSON.parse(localStorage.getItem("_KandoTodo"));
 
 export default function(state = todoStorage, action) {

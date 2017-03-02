@@ -15,10 +15,11 @@
 * ~~get moveTodo action to be called within hover function~~
 * ~~fix done workspace bug that won't let it be moved from within (it might be indexes - check that)~~
 * set up project component to allow image
-* ~~implement more inputs on project component modal form~~
+* implement more inputs on project component modal form
 * hook up workspace update action and reducers to new goal checkboxes
 * add ability to delete project by button
 * transfer local storage capability to MongoDb
+* add a random quote on an interval in the header from api
 
 
 

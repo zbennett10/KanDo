@@ -1,20 +1,5 @@
 import _ from 'lodash';
 
-//if this is the user's first time entering the website
-if(!localStorage._KandoDoing) {
-    var initialDoing = [
-        {
-            title: 'DoingProject',
-            id: 108048,
-            desc: "Doing stuff and things.",
-            index: 0
-        }
-    ];
-
-    setDoingStorage(initialDoing);
-}
-
-
 var doingStorage = JSON.parse(localStorage.getItem("_KandoDoing"));
 
 

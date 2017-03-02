@@ -8,6 +8,7 @@ export function addTodo(project) {
 }
 
 export function clearTodo() {
+    localStorage.setItem('_KandoTodo', JSON.stringify([]));
     return {
         type: 'CLEAR_TODO',
         payload: []
@@ -63,6 +64,7 @@ export function addDoing(project) {
 }
 
 export function clearDoing() {
+    localStorage.setItem('_KandoDoing', JSON.stringify([]));
     return {
         type: 'CLEAR_DOING',
         payload: []
@@ -126,6 +128,7 @@ export function addDone(project) {
 }
 
 export function clearDone() {
+    localStorage.setItem('_KandoDone', JSON.stringify([]));
     return {
         type: 'CLEAR_DONE',
         payload: []

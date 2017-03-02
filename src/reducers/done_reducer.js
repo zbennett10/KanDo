@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 //if this is the user's first time entering the website
+//keep this here for now until figure out how to drop on empty done workspace
 if(!localStorage._KandoDone) {
     var initialDone= [
         {
