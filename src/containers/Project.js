@@ -221,6 +221,10 @@ class Project extends Component {
                             {this.props.title}
                         </a>
                     </h4>
+                    <button className="delete-btn btn btn-sm btn-danger"
+                            onClick={() => this.props.onDeleteProject(this.props.id)}>
+                        Delete
+                    </button>
                 </div>
 
 

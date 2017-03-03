@@ -25,5 +25,5 @@
 
 
 ### Frameworks/Libraries to implement in future:
-* GunDB
 * React-Router
+* CouchDB

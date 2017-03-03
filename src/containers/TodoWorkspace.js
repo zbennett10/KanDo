@@ -14,6 +14,7 @@ class TodoWorkspace extends Component {
         this.onOpenAddModal = this.onOpenAddModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.onAddProject = this.onAddProject.bind(this);
+        this.onDeleteProject = this.onDeleteProject.bind(this);
 
         this.state = {
             addModalOpen: false
@@ -22,6 +23,11 @@ class TodoWorkspace extends Component {
 
     onWorkspaceClear(event) {
         this.props.clearTodo();
+    }
+
+    onDeleteProject(projectID) {
+        const projectToDelete = this.props.todoProjects.find(project => project.id === projectID);
+        this.props.deleteTodo(projectToDelete);
     }
 
     onOpenAddModal(event) {
@@ -67,6 +73,7 @@ class TodoWorkspace extends Component {
                                         desc={project.desc}
                                         index={project.index}
                                         workspace="todo"
+                                        onDeleteProject={this.onDeleteProject}
                                         moveTodoWithin={this.props.moveTodoWithin}
                                         todoToDoing={this.props.todoToDoing}
                                         deleteTodo={this.props.deleteTodo}
