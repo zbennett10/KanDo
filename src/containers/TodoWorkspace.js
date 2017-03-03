@@ -37,7 +37,8 @@ class TodoWorkspace extends Component {
         let projectDesc = this.refs.projectDesc.value;
         this.props.addTodo({
             title: projectTitle,
-            id: _.uniqueId(),
+            key: _.random(1000000),
+            id: _.random(1000000),
             desc: projectDesc,
             workspace: 'todo',
             index: this.props.todoProjects.length,
@@ -60,7 +61,7 @@ class TodoWorkspace extends Component {
                 Clear</button>
                 <div>
                     {this.props.todoProjects.map(project => {
-                        return <Project key={project.id}
+                        return <Project key={project.key}
                                         id={project.id}
                                         title={project.title}
                                         desc={project.desc}

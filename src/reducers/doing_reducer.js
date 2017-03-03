@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-var doingStorage = JSON.parse(localStorage.getItem("_KandoDoing"));
+var doingStorage = JSON.parse(localStorage.getItem("_KandoDoing")) || [];
 
 
 export default function(state = doingStorage, action) {

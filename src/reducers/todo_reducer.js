@@ -1,7 +1,14 @@
 import update from 'react-addons-update';
+import {List} from 'immutable';
 
 //import action that adds/removes or changes project here
 import _ from 'lodash';
+
+Array.prototype.swapProp = function(obj1, obj2, prop) {
+    let temp = obj1[prop];
+    obj1[prop] = obj2[prop];
+    obj2[prop] = temp;
+}
 
 var todoStorage = JSON.parse(localStorage.getItem("_KandoTodo"));
 
@@ -9,10 +16,10 @@ export default function(state = todoStorage, action) {
     //action switch statement here (one for add, remove, update)
     switch(action.type) {
         case 'ADD_TODO':
-            action.payload[0].index = state.length;
-            setTodoStorage(state.concat(action.payload));
-            return state.concat(action.payload);
-        case 'DELETE_TODO': 
+            const newerState = List(state).push(action.payload);
+            setTodoStorage(newerState.toJS());
+            return newerState.toJS();
+        case 'DELETE_TODO':
             let deleteState = state.slice();
             const deletedIndex = state.indexOf(state.find(project=>project.id===action.payload.id));
             deleteState.splice(deletedIndex,1);
@@ -22,25 +29,19 @@ export default function(state = todoStorage, action) {
         case 'CLEAR_TODO':
             return action.payload;
         case 'UPDATE_TODO':
-            let updatedIndex = state.indexOf(state.find(project=>project.id===action.payload.id)); //find index of project in state array
-            let updateState = state.slice(); //create copy of current state
-            updateState.splice(updatedIndex, 1, action.payload); //replace old project with new project
-            setTodoStorage(updateState);
-            return updateState;
-        case 'MOVE_TODO_WITHIN':
-            //switch positions in state
-            //switch indexes in projects
-            let moveState = state.slice();
-            const sourceProject = moveState[action.payload.sourceIndex];
-            const targetProject = moveState[action.payload.targetIndex];
-            let temp = sourceProject.index;
-            sourceProject.index = targetProject.index;
-            targetProject.index = temp;
-            
-            moveState.splice(action.payload.targetIndex, 1, sourceProject);
-            moveState.splice(action.payload.sourceIndex, 1 , targetProject);
-            setTodoStorage(moveState);
-            return moveState;
+            const updatedIndex = state.indexOf(state.find(project=>project.id===action.payload.id)); //find index of project in state array
+            const newState = List(state).set(updatedIndex, action.payload);
+            setTodoStorage(newState.toJS());
+            return newState;
+        case 'MOVE_TODO_WITHIN':     
+            const sourceProject = state[action.payload.sourceIndex];
+            const targetProject = state[action.payload.targetIndex];
+            Array.prototype.swapProp(sourceProject, targetProject, "index");
+    
+            const interimState = List(state).set(action.payload.targetIndex, sourceProject);
+            const finalState = interimState.set(action.payload.sourceIndex, targetProject);
+            setTodoStorage(finalState.toJS());
+            return finalState.toJS();
         default:
             return state;
     }
